@@ -3,7 +3,7 @@
 purpose：
 @author: yhp
 '''
-from datax.dataSource.textfile import writer,reader
+from dataSource.textfile import writer,reader
 configModule={
     "setting":{},
     "job":{

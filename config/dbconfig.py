@@ -23,7 +23,7 @@ cfgdb_m_client_encoding='utf8'
 
 
 #mysql配置库-dataxmeda
-datax_db_m_dbname='dataxmeda'
+datax_db_m_dbname='dataxmeta'
 datax_db_m_dbuser='yhp'
 datax_db_m_password='yhp8023Y'
 datax_db_m_port=3306
