@@ -1,0 +1,46 @@
+{
+    "setting": {},
+    "job": {
+        "setting": {
+            "speed": {
+                "channel": 3
+            }
+        },
+        "content": {
+            "reader": {
+                "name": "txtfilereader",
+                "parameter": {
+                    "path": [
+                        "/data/etl/etldata/output/input.txt"
+                    ],
+                    "encoding": "UTF-8",
+                    "column": [
+                        {
+                            "index": 0,
+                            "type": "string"
+                        },
+                        {
+                            "index": 1,
+                            "type": "string"
+                        },
+                        {
+                            "index": 2,
+                            "type": "string"
+                        }
+                    ],
+                    "fieldDelimiter": ",",
+                    "skipHeader": "true"
+                }
+            },
+            "writer": {
+                "name": "txtfilewriter",
+                "parameter": {
+                    "path": "/data/etl/etldata/output",
+                    "fileName": "output.txt",
+                    "writeMode": "truncate",
+                    "format": "yyyy-MM-dd"
+                }
+            }
+        }
+    }
+}
