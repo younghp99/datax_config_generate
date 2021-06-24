@@ -46,11 +46,16 @@ def create_job(job_nm):
     if reader_type=='file':
         reader_name=reader_name+reader_table_name
         job_reader=file_reader(reader_name,column_list,fieldDelimiter,'true')
-
+    else:
+        print( "No "+reader_type+" writer define！")
+        return -1
     #writer的处理逻辑
     # writer为file
     if writer_type=='file':
         job_writer=file_writer(writer_name, writer_table_name, writer_load_type, 'yyyy-MM-dd')
+    else:
+        print( "No "+writer_type+" writer define！")
+        return -1
 
     #构建job配置内容
     configModule["job"]["content"]["reader"]=job_reader
@@ -61,5 +66,5 @@ def create_job(job_nm):
         fp.write(json.dumps(configModule,indent=4))
 
 if __name__ == '__main__':
-    get_job_parameter('file2file')
-    create_job('file2file')
+    get_job_parameter('file2mysql')
+    create_job('file2mysql')
