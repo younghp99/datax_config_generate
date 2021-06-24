@@ -3,7 +3,7 @@
 purpose：文件类型数据源的读取和写入配置
 @author: yhp
 '''
-def reader(path,column_list,fieldDelimiter,skipHeader='false'):
+def file_reader(path,column_list,fieldDelimiter,skipHeader='false'):
     #print("start create reader")
     name='txtfilereader'
     path=[path]
@@ -23,7 +23,7 @@ def reader(path,column_list,fieldDelimiter,skipHeader='false'):
     #print(reader)
     return reader
 
-def writer(path,filename,writeMode,format):
+def file_writer(path,filename,writeMode,format):
     #print("start create writer")
     path=path
     filename=filename
@@ -44,6 +44,6 @@ def writer(path,filename,writeMode,format):
     #print(writer)
     return writer
 if __name__ == '__main__':
-    print(reader('/aa/aa',[{"a":"a"},{"b":"b"}],','))
-    print(reader('/aa/aa',[{"a":"a"},{"b":"b"}],',','true'))
-    print(writer('/aa/aa','output.txt','truncate','yyyy-MM-dd'))
+    print(file_reader('/aa/aa',[{"a":"a"},{"b":"b"}],','))
+    print(file_reader('/aa/aa',[{"a":"a"},{"b":"b"}],',','true'))
+    print(file_writer('/aa/aa','output.txt','truncate','yyyy-MM-dd'))
