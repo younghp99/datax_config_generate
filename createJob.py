@@ -4,6 +4,7 @@
 '''
 import json
 from dataSource.textfile import file_reader,file_writer
+from dataSource.mysql import mysql_reader,mysql_writer
 from config.configModule import configModule
 from conn.conn_mysql import conn_mysql,exe_sql
 def get_job_parameter(job_nm):
@@ -20,7 +21,6 @@ def get_job_parameter(job_nm):
         'tgt_tab_name':result[0][6],
         'tgt_load_type':result[0][7]
     }
-    print(job)
     return job
 
 def create_job(job_nm):
@@ -40,17 +40,23 @@ def create_job(job_nm):
     for i in range(0,3):
         column_list.append({"index":i,"type":"string"})
     #reader的逻辑处理
-    if reader_name[:-1]!='/':
-        reader_name+='/'
     # reader为file,还需要处理列信息
+    print(reader_type)
     if reader_type=='file':
+        if reader_name[:-1] != '/':
+            reader_name += '/'
         reader_name=reader_name+reader_table_name
         job_reader=file_reader(reader_name,column_list,fieldDelimiter,'true')
+    elif reader_type=='mysql':
+        print(reader_name)
+        print(reader_table_name)
+        job_reader=mysql_reader(reader_name,'',reader_table_name)
+        print(job_reader)
     else:
-        print( "No "+reader_type+" writer define！")
+        print( "No "+reader_type+" reader define！")
         return -1
     #writer的处理逻辑
-    # writer为file
+    #writer为file
     if writer_type=='file':
         job_writer=file_writer(writer_name, writer_table_name, writer_load_type, 'yyyy-MM-dd')
     else:
@@ -66,5 +72,5 @@ def create_job(job_nm):
         fp.write(json.dumps(configModule,indent=4))
 
 if __name__ == '__main__':
-    get_job_parameter('file2mysql')
-    create_job('file2mysql')
+    get_job_parameter('DWMETA')
+    create_job('DWMETA')

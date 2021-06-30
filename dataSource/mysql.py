@@ -3,21 +3,36 @@
 purpose：mysql数据源的读取和写入配置
 @author: yhp
 '''
-def mysql_reader(path,column_list,fieldDelimiter,skipHeader='false'):
+import pymysql
+from conn.conn_mysql import conn_mysql,exe_sql
+def mysql_reader(dbname,column_list,tablename):
     #print("start create reader")
-    name='txtfilereader'
-    path=[path]
-    encoding='UTF-8'
+    name='mysqlreader'
+    result=exe_sql("select * from dbconfig where sysname='"+dbname+"';")
+    print(result)
+    dbname=result[0][2]
+    dbhost=result[0][3]
+    dbport=result[0][4]
+    username=result[0][5]
+    passwd=result[0][6]
+    jdbc_url="jdbc:mysql://"+dbhost+":"+dbport+"/"+dbname
+    query_sql='select * from '+dbname+'.'+tablename+";"
     column_list=column_list
-    fieldDelimiter=fieldDelimiter
     reader={
         "name":name,
         "parameter": {
-            "path": path,
-            "encoding": encoding,
-            "column": column_list,
-            "fieldDelimiter": fieldDelimiter,
-            "skipHeader":skipHeader
+            "username": username,
+            "password": passwd,
+            "connection": [
+                {
+                    "querySql": [
+                        query_sql
+                    ],
+                    "jdbcUrl": [
+                        jdbc_url
+                    ]
+                }
+            ]
         }
     }
     #print(reader)
@@ -44,6 +59,4 @@ def mysql_writer(path,filename,writeMode,format):
     #print(writer)
     return writer
 if __name__ == '__main__':
-    print(mysql_reader('/aa/aa',[{"a":"a"},{"b":"b"}],','))
-    print(mysql_reader('/aa/aa',[{"a":"a"},{"b":"b"}],',','true'))
-    print(mysql_writer('/aa/aa','output.txt','truncate','yyyy-MM-dd'))
+    print(mysql_reader('DWMETA','','tab_load_cfg'))
