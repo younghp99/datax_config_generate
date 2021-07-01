@@ -41,17 +41,13 @@ def create_job(job_nm):
         column_list.append({"index":i,"type":"string"})
     #reader的逻辑处理
     # reader为file,还需要处理列信息
-    print(reader_type)
     if reader_type=='file':
         if reader_name[:-1] != '/':
             reader_name += '/'
         reader_name=reader_name+reader_table_name
         job_reader=file_reader(reader_name,column_list,fieldDelimiter,'true')
     elif reader_type=='mysql':
-        print(reader_name)
-        print(reader_table_name)
         job_reader=mysql_reader(reader_name,'',reader_table_name)
-        print(job_reader)
     else:
         print( "No "+reader_type+" reader define！")
         return -1
@@ -64,10 +60,11 @@ def create_job(job_nm):
         return -1
 
     #构建job配置内容
-    configModule["job"]["content"]["reader"]=job_reader
-    configModule["job"]["content"]["writer"]=job_writer
+    configModule["job"]["content"][0]["reader"]=job_reader
+    configModule["job"]["content"][0]["writer"]=job_writer
     configModule["job"]["setting"]["speed"]["channel"]=job_settting_speed_channel
     #将job配置内容输出到文件
+    print(configModule)
     with open("./resultJob/"+job_nm+".json", "w") as fp:
         fp.write(json.dumps(configModule,indent=4))
 

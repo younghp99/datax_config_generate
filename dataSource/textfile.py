@@ -3,6 +3,7 @@
 purpose：文件类型数据源的读取和写入配置
 @author: yhp
 '''
+
 def file_reader(path,column_list,fieldDelimiter,skipHeader='false'):
     #print("start create reader")
     name='txtfilereader'

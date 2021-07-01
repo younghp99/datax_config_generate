@@ -5,15 +5,15 @@ purpose：
 '''
 from dataSource.textfile import file_writer,file_reader
 configModule={
-    "setting":{},
     "job":{
         "setting":{
             "speed": {
             "channel": 2
             }
         },
-        "content":{
-        }
+        "content":[
+            {}
+        ]
     }
 }
 if __name__ == '__main__':
