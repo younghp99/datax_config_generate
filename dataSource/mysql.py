@@ -38,8 +38,9 @@ def mysql_reader(dbname,column_list,tablename):
     #print(reader)
     return reader
 
-def mysql_writer(path,filename,writeMode,format):
+def mysql_writer(dbname,tablename,column_list,presql,format):
     #print("start create writer")
+    name='mysqlreader'
     path=path
     filename=filename
     #truncate，写入前清理目录下一fileName前缀的所有文件。
@@ -48,7 +49,7 @@ def mysql_writer(path,filename,writeMode,format):
     writeMode=writeMode
     format=format
     writer={
-            "name": "txtfilewriter",
+            "name": name,
             "parameter": {
                 "path": path,
                 "fileName": filename,
