@@ -1,5 +1,9 @@
 路径说明：
-
+-config：配置信息
+-conn：数据库连接
+-dataSource ：数据源
+-resultJob ：脚本结果
+-tool ：工具
 
 
 202100623:
